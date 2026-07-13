@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#0f2027">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Kevin rauchfrei">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23203a43'/%3E%3Ctext x='50' y='68' font-size='55' text-anchor='middle'%3E%E2%9D%A4%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50' y='75' font-size='70' text-anchor='middle'%3E%E2%9D%A4%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<title>Kevin rauchfrei ❤️</title>
+<style>
+  :root{
+    --bg1:#0f2027; --bg2:#203a43; --bg3:#2c5364;
+    --accent:#2ecc71; --accent2:#27ae60; --warn:#e67e22; --red:#e74c3c;
+    --card:rgba(255,255,255,0.06); --card-border:rgba(255,255,255,0.12);
+    --text:#f2f6f7; --sub:#b7c4c8;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; min-height:100vh; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    background:linear-gradient(135deg,var(--bg1),var(--bg2) 50%,var(--bg3));
+    color:var(--text); padding:20px 14px 60px;
+  }
+  .wrap{max-width:640px;margin:0 auto;}
+  header{text-align:center;margin-bottom:22px;}
+  header h1{font-size:1.6rem;margin:0 0 4px;}
+  header p{color:var(--sub);margin:0;font-size:0.95rem;}
+  .card{
+    background:var(--card); border:1px solid var(--card-border);
+    border-radius:18px; padding:20px; margin-bottom:16px;
+    backdrop-filter:blur(6px);
+  }
+  .hero{text-align:center;}
+  .hero .big{
+    font-size:2.6rem; font-weight:700; letter-spacing:1px;
+    background:linear-gradient(90deg,#2ecc71,#58d68d);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .timeunits{display:flex;justify-content:center;gap:10px;margin-top:10px;flex-wrap:wrap;}
+  .tu{background:rgba(0,0,0,0.25);border-radius:12px;padding:10px 14px;min-width:64px;}
+  .tu .n{font-size:1.4rem;font-weight:700;}
+  .tu .l{font-size:0.7rem;color:var(--sub);text-transform:uppercase;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:480px){.grid2{grid-template-columns:1fr;}}
+  .stat .n{font-size:1.7rem;font-weight:700;color:var(--accent);}
+  .stat .l{font-size:0.85rem;color:var(--sub);}
+  .progress-outer{background:rgba(0,0,0,0.3);border-radius:20px;height:20px;overflow:hidden;margin-top:10px;}
+  .progress-inner{background:linear-gradient(90deg,#2ecc71,#f1c40f);height:100%;width:0%;transition:width .6s ease;border-radius:20px;}
+  .goal-row{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:0.85rem;color:var(--sub);flex-wrap:wrap;}
+  .goal-row input{
+    width:90px;background:rgba(0,0,0,0.25);border:1px solid var(--card-border);
+    color:var(--text);border-radius:8px;padding:4px 8px;
+  }
+  h2{font-size:1.05rem;margin:0 0 12px;display:flex;align-items:center;gap:8px;}
+  .milestones{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;}
+  .milestones li{
+    display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;
+    background:rgba(0,0,0,0.15);font-size:0.9rem;
+  }
+  .milestones li.done{background:rgba(46,204,113,0.15);}
+  .milestones .dot{width:20px;height:20px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.75rem;background:rgba(255,255,255,0.1);}
+  .milestones li.done .dot{background:var(--accent);}
+  .reason-carousel{
+    text-align:center;font-style:italic;font-size:1.05rem;min-height:50px;
+    display:flex;align-items:center;justify-content:center;padding:0 6px;
+  }
+  .sos-btn{
+    display:block;width:100%;padding:18px;border:none;border-radius:16px;
+    background:linear-gradient(90deg,var(--red),#c0392b); color:white;
+    font-size:1.15rem;font-weight:700;cursor:pointer;margin-top:6px;
+    box-shadow:0 6px 20px rgba(231,76,60,0.35);
+  }
+  .sos-btn:active{transform:scale(0.98);}
+  .overlay{
+    position:fixed;inset:0;background:rgba(10,15,20,0.92);display:none;
+    align-items:center;justify-content:center;z-index:50;padding:20px;
+  }
+  .overlay.show{display:flex;}
+  .sos-card{
+    background:var(--bg2);border-radius:20px;padding:26px 22px;max-width:420px;width:100%;
+    text-align:center;border:1px solid var(--card-border);max-height:90vh;overflow-y:auto;
+  }
+  .breath-circle{
+    width:140px;height:140px;border-radius:50%;margin:14px auto;
+    background:radial-gradient(circle,#2ecc71,#1e8449);
+    display:flex;align-items:center;justify-content:center;font-weight:600;
+    animation:breathe 19s ease-in-out infinite;
+  }
+  @keyframes breathe{
+    0%{transform:scale(0.75);} 21%{transform:scale(1.15);} 58%{transform:scale(1.15);} 100%{transform:scale(0.75);}
+  }
+  .tip{background:rgba(255,255,255,0.06);border-radius:10px;padding:10px;margin:10px 0;font-size:0.9rem;}
+  .btn{
+    border:none;border-radius:12px;padding:12px 16px;font-size:0.95rem;font-weight:600;
+    cursor:pointer;margin:6px 4px;
+  }
+  .btn-primary{background:var(--accent);color:#08331c;}
+  .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--card-border);}
+  .btn-close{background:transparent;color:var(--sub);text-decoration:underline;border:none;cursor:pointer;font-size:0.85rem;margin-top:10px;}
+  .reasons-list{columns:1;padding-left:0;margin:0;list-style:none;}
+  .reasons-list li{padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:0.9rem;}
+  .reasons-list li:last-child{border-bottom:none;}
+  .cruise-highlight{
+    background:linear-gradient(90deg,rgba(52,152,219,0.18),rgba(46,204,113,0.18));
+    border-radius:12px;padding:12px;text-align:center;font-size:0.95rem;margin-top:10px;
+  }
+  footer{text-align:center;color:var(--sub);font-size:0.8rem;margin-top:20px;}
+  .relapse-link{
+    display:block;text-align:center;margin-top:10px;color:var(--sub);font-size:0.8rem;
+    text-decoration:underline;cursor:pointer;background:none;border:none;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Kevin, du schaffst das! ❤️</h1>
+    <p>Von deinem Schatz — für dich, für uns, für die Kreuzfahrt 🚢</p>
+  </header>
+
+  <div class="card hero">
+    <div id="countdownNote" style="color:var(--warn);font-weight:600;margin-bottom:6px;"></div>
+    <div class="big" id="mainCounter">0 Tage</div>
+    <div class="timeunits">
+      <div class="tu"><div class="n" id="uDays">0</div><div class="l">Tage</div></div>
+      <div class="tu"><div class="n" id="uHours">0</div><div class="l">Std</div></div>
+      <div class="tu"><div class="n" id="uMins">0</div><div class="l">Min</div></div>
+      <div class="tu"><div class="n" id="uSecs">0</div><div class="l">Sek</div></div>
+    </div>
+    <div class="goal-row" style="justify-content:center;margin-top:14px;">
+      <span>Start-Zeitpunkt:</span>
+      <input type="datetime-local" id="quitDateInput" style="width:auto;">
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>💌 Warum du es schaffst</h2>
+    <div class="reason-carousel" id="reasonCarousel">–</div>
+  </div>
+
+  <div class="grid2">
+    <div class="card stat">
+      <div class="n" id="cigsAvoided">0</div>
+      <div class="l">nicht gerauchte Zigaretten</div>
+    </div>
+    <div class="card stat">
+      <div class="n" id="moneySaved">0 €</div>
+      <div class="l">gespartes Geld</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🚢 Sparziel: Kreuzfahrt</h2>
+    <div class="progress-outer"><div class="progress-inner" id="goalBar"></div></div>
+    <div class="goal-row">
+      <span id="goalText">0 € von</span>
+      <input type="number" id="goalInput" value="3000" step="100">
+      <span>€</span>
+    </div>
+    <div class="cruise-highlight" id="goalMsg">Jede rauchfreie Stunde bringt euch näher an Bord! ⚓</div>
+  </div>
+
+  <div class="card">
+    <h2>💪 Verlangen besiegt: <span id="masteredCount" style="color:var(--accent);">0×</span></h2>
+    <p style="color:var(--sub);font-size:0.9rem;margin:0 0 12px;">
+      Hattest du gerade Lust auf eine Zigarette und hast nicht geraucht? Dann trag es hier ein —
+      jeder Klick ist ein kleiner Sieg, den du sammelst.
+    </p>
+    <button class="btn btn-primary" onclick="masteredMoment()" style="width:100%;">✅ Ja, gerade geschafft — nicht geraucht!</button>
+  </div>
+
+  <div class="card">
+    <h2>🌿 Gesundheits-Meilensteine</h2>
+    <ul class="milestones" id="milestoneList"></ul>
+  </div>
+
+  <button class="sos-btn" onclick="openSOS()">🆘 Jetzt hilf mir</button>
+  <button class="relapse-link" onclick="openRelapse()">Ich habe geraucht… (kein Drama, weitermachen)</button>
+
+  <footer>
+    Gemacht mit ❤️ für Kevin. Du schaffst das, Schritt für Schritt.
+    <br><span style="font-style:italic;">Me and You get for one.</span>
+  </footer>
+</div>
+
+<!-- SOS Overlay -->
+<div class="overlay" id="sosOverlay">
+  <div class="sos-card">
+    <h2 style="justify-content:center;">Kurz durchatmen, Kevin</h2>
+    <div class="breath-circle" id="breathCircle">Atme</div>
+    <p style="color:var(--sub);font-size:0.85rem;">4 Sek einatmen · 7 Sek halten · 8 Sek ausatmen</p>
+
+    <div class="tip" id="reasonTip">Grund wird geladen…</div>
+    <div class="tip" id="distractionTip">Ablenkungs-Tipp wird geladen…</div>
+
+    <button class="btn btn-ghost" onclick="newDistraction()">🔄 Anderer Tipp</button>
+    <br>
+    <button class="btn btn-primary" onclick="masteredMoment()">✅ Geschafft — nicht geraucht!</button>
+    <br>
+    <button class="btn-close" onclick="closeSOS()">Schließen</button>
+  </div>
+</div>
+
+<!-- Relapse Overlay -->
+<div class="overlay" id="relapseOverlay">
+  <div class="sos-card">
+    <h2 style="justify-content:center;">Das ist okay, Kevin</h2>
+    <p style="font-size:0.9rem;color:var(--sub);">
+      Ein Ausrutscher bedeutet nicht, dass du versagt hast. Wichtig ist, dass du jetzt weitermachst.
+      Dein Zähler startet neu — aber alles, was du bis hierhin geschafft hast, zählt trotzdem.
+    </p>
+    <button class="btn btn-primary" onclick="confirmRelapse()">Neu starten ab jetzt</button>
+    <br>
+    <button class="btn-close" onclick="closeRelapse()">Abbrechen</button>
+  </div>
+</div>
+
+<script>
+// ---------- Konfiguration ----------
+const CIGS_PER_DAY = 25;        // Mittelwert 20-30
+const PRICE_PER_PACK = 10;      // €
+const CIGS_PER_PACK = 26;
+const PRICE_PER_CIG = PRICE_PER_PACK / CIGS_PER_PACK;
+const DEFAULT_QUIT_DATE = "2026-07-14T14:00:00";
+
+const REASONS = [
+  "Deine Gesundheit — Rauch schadet auch dir.",
+  "Kein Gestank mehr an Kleidung und Haut.",
+  "Ich muss dir nicht mehr sagen, dass du stinkst.",
+  "Weniger Dreck auf der Terrasse und im Auto.",
+  "Mehr Zeit für schöne gemeinsame Momente.",
+  "Weniger Stress, weil ich nicht ständig rauchen muss.",
+  "Eine Menge Geld sparen — für unsere Kreuzfahrt! 🚢",
+  "Länger zusammen leben.",
+  "Besser schlafen, ohne Schnarchen.",
+  "Entspanntere Pausen bei der Arbeit — Zeit zum Essen und Trinken.",
+  "Schönere Zähne.",
+  "Weniger Krankheitsrisiko.",
+  "Weniger Müll: Kippen, Schachteln, Feuerzeuge.",
+  "Gesünder und langsamer essen.",
+  "Weniger Umweltverschmutzung.",
+  "Deinem Mann weniger Sorgen bereiten.",
+  "Nicht mehr der/die Einzige in der Familie, die raucht.",
+  "Weniger Husten, besser Luft bekommen.",
+  "Deinen Mann stolz machen.",
+  "Für dich. Für uns. Für die Kreuzfahrt."
+];
+
+const DISTRACTIONS = [
+  "Trink ein großes Glas Wasser, langsam, in kleinen Schlucken.",
+  "Geh 3 Minuten raus oder ans Fenster und atme frische Luft.",
+  "Ruf oder schreib mir eine Nachricht ❤️",
+  "Putz dir die Zähne — der frische Geschmack hilft.",
+  "Mach 10 Kniebeugen oder schüttel dich kurz aus.",
+  "Kau einen Kaugummi oder iss etwas Knackiges (Karotte, Apfel).",
+  "Halt die Hände 60 Sekunden beschäftigt: Stift drehen, Ball kneten.",
+  "Denk an die Kreuzfahrt und was du dir sonst noch vom gesparten Geld gönnen willst.",
+  "Schreib auf, wie du dich JETZT fühlst — das Verlangen geht in ein paar Minuten vorbei."
+];
+
+// ---------- Storage Keys ----------
+const LS_QUITDATE = "kevin_quitdate";
+const LS_GOAL = "kevin_goal";
+const LS_MASTERED = "kevin_mastered";
+
+function getQuitDate(){
+  return new Date(localStorage.getItem(LS_QUITDATE) || DEFAULT_QUIT_DATE);
+}
+if(!localStorage.getItem(LS_QUITDATE)){
+  localStorage.setItem(LS_QUITDATE, DEFAULT_QUIT_DATE);
+}
+if(!localStorage.getItem(LS_GOAL)){
+  localStorage.setItem(LS_GOAL, "3000");
+}
+if(!localStorage.getItem(LS_MASTERED)){
+  localStorage.setItem(LS_MASTERED, "0");
+}
+
+document.getElementById("goalInput").value = localStorage.getItem(LS_GOAL);
+document.getElementById("goalInput").addEventListener("change", (e)=>{
+  const v = Math.max(1, parseFloat(e.target.value) || 3000);
+  localStorage.setItem(LS_GOAL, v);
+  updateAll();
+});
+
+// ---------- Start-Zeitpunkt manuell setzen ----------
+function toLocalInputValue(date){
+  const pad = n => String(n).padStart(2,"0");
+  return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}
+const quitDateInput = document.getElementById("quitDateInput");
+quitDateInput.value = toLocalInputValue(getQuitDate());
+quitDateInput.addEventListener("change", (e)=>{
+  if(!e.target.value) return;
+  const newDate = new Date(e.target.value);
+  localStorage.setItem(LS_QUITDATE, newDate.toISOString());
+  updateAll();
+});
+
+// ---------- Milestones (ms since quit) ----------
+const MS = 1000, MIN=60*MS, H=60*MIN, D=24*H;
+const MILESTONES = [
+  {t:20*MIN, text:"20 Minuten: Puls und Blutdruck normalisieren sich"},
+  {t:12*H, text:"12 Stunden: Kohlenmonoxid im Blut sinkt auf Normalwert"},
+  {t:1*D, text:"24 Stunden: Herzinfarktrisiko beginnt zu sinken"},
+  {t:2*D, text:"48 Stunden: Geruchs- und Geschmackssinn verbessern sich"},
+  {t:3*D, text:"72 Stunden: Bronchien entspannen sich, mehr Energie"},
+  {t:14*D, text:"2 Wochen: Durchblutung und Lungenfunktion verbessern sich"},
+  {t:90*D, text:"3 Monate: Lungenfunktion deutlich verbessert, weniger Husten"},
+  {t:270*D, text:"9 Monate: Husten und Kurzatmigkeit nehmen spürbar ab"},
+  {t:365*D, text:"1 Jahr: Risiko für Herzerkrankungen halbiert sich"},
+  {t:5*365*D, text:"5 Jahre: Schlaganfallrisiko wie bei Nichtrauchern"},
+  {t:10*365*D, text:"10 Jahre: Lungenkrebsrisiko halbiert sich"},
+  {t:15*365*D, text:"15 Jahre: Herzinfarktrisiko wie bei Nichtrauchern"},
+];
+
+function renderMilestones(elapsed){
+  const list = document.getElementById("milestoneList");
+  list.innerHTML = "";
+  MILESTONES.forEach(m=>{
+    const li = document.createElement("li");
+    const done = elapsed >= m.t;
+    li.className = done ? "done" : "";
+    li.innerHTML = `<span class="dot">${done? "✓":""}</span><span>${m.text}</span>`;
+    list.appendChild(li);
+  });
+}
+
+function fmtNum(n, digits=0){
+  return n.toLocaleString("de-DE",{minimumFractionDigits:digits,maximumFractionDigits:digits});
+}
+
+function updateAll(){
+  const quitDate = getQuitDate();
+  const now = new Date();
+  let elapsed = now - quitDate;
+
+  const countdownNote = document.getElementById("countdownNote");
+  if(elapsed < 0){
+    countdownNote.textContent = "Start: " + quitDate.toLocaleString("de-DE");
+    elapsed = 0;
+  } else {
+    countdownNote.textContent = "";
+  }
+
+  const days = Math.floor(elapsed / D);
+  const hours = Math.floor((elapsed % D) / H);
+  const mins = Math.floor((elapsed % H) / MIN);
+  const secs = Math.floor((elapsed % MIN) / MS);
+
+  document.getElementById("mainCounter").textContent = `${days} ${days===1?"Tag":"Tage"} rauchfrei`;
+  document.getElementById("uDays").textContent = days;
+  document.getElementById("uHours").textContent = hours;
+  document.getElementById("uMins").textContent = mins;
+  document.getElementById("uSecs").textContent = secs;
+
+  const elapsedDaysFraction = elapsed / D;
+  const cigsAvoided = elapsedDaysFraction * CIGS_PER_DAY;
+  const moneySaved = cigsAvoided * PRICE_PER_CIG;
+
+  document.getElementById("cigsAvoided").textContent = Math.floor(cigsAvoided);
+  document.getElementById("moneySaved").textContent = fmtNum(moneySaved,2) + " €";
+
+  const goal = parseFloat(localStorage.getItem(LS_GOAL)) || 3000;
+  const pct = Math.min(100, (moneySaved/goal)*100);
+  document.getElementById("goalBar").style.width = pct + "%";
+  document.getElementById("goalText").textContent = `${fmtNum(moneySaved,2)} € von`;
+  document.getElementById("goalMsg").textContent = pct >= 100
+    ? "Ziel erreicht — Kreuzfahrt, wir kommen! 🚢🎉"
+    : `Noch ${fmtNum(goal-moneySaved,2)} € bis zur Kreuzfahrt.`;
+
+  document.getElementById("masteredCount").textContent = localStorage.getItem(LS_MASTERED) + "×";
+
+  renderMilestones(elapsed);
+}
+
+setInterval(updateAll, 1000);
+updateAll();
+
+// ---------- Reason carousel ----------
+let reasonIdx = 0;
+function rotateReason(){
+  document.getElementById("reasonCarousel").textContent = "„" + REASONS[reasonIdx] + "“";
+  reasonIdx = (reasonIdx + 1) % REASONS.length;
+}
+rotateReason();
+setInterval(rotateReason, 6000);
+
+// ---------- SOS Overlay ----------
+let breathTimer = null;
+function startBreathText(){
+  const circle = document.getElementById("breathCircle");
+  const steps = [
+    {at:0, text:"Einatmen…"},
+    {at:4000, text:"Halten…"},
+    {at:11000, text:"Ausatmen…"}
+  ];
+  // schedule the 3 steps within each 19s cycle
+  function cycle(){
+    steps.forEach(s=>{
+      setTimeout(()=>{ circle.textContent = s.text; }, s.at);
+    });
+  }
+  cycle();
+  breathTimer = setInterval(cycle, 19000);
+}
+function stopBreathText(){
+  if(breathTimer){ clearInterval(breathTimer); breathTimer = null; }
+}
+function openSOS(){
+  document.getElementById("reasonTip").textContent = "💌 " + REASONS[Math.floor(Math.random()*REASONS.length)];
+  newDistraction();
+  document.getElementById("sosOverlay").classList.add("show");
+  startBreathText();
+}
+function closeSOS(){
+  document.getElementById("sosOverlay").classList.remove("show");
+  stopBreathText();
+}
+function newDistraction(){
+  document.getElementById("distractionTip").textContent = "🎯 " + DISTRACTIONS[Math.floor(Math.random()*DISTRACTIONS.length)];
+}
+function masteredMoment(){
+  const c = parseInt(localStorage.getItem(LS_MASTERED) || "0") + 1;
+  localStorage.setItem(LS_MASTERED, c);
+  updateAll();
+  closeSOS();
+}
+
+// ---------- Relapse Overlay ----------
+function openRelapse(){
+  document.getElementById("relapseOverlay").classList.add("show");
+}
+function closeRelapse(){
+  document.getElementById("relapseOverlay").classList.remove("show");
+}
+function confirmRelapse(){
+  localStorage.setItem(LS_QUITDATE, new Date().toISOString());
+  updateAll();
+  closeRelapse();
+}
+</script>
+</body>
+</html>
